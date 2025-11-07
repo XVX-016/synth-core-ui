@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { Suspense, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Sphere } from "@react-three/drei";
 import * as THREE from "three";
@@ -85,23 +85,29 @@ function Methane() {
 export function MoleculeViewer({ moleculeName = "methane" }: MoleculeProps) {
   return (
     <div className="w-full h-full min-h-[400px] rounded-lg overflow-hidden metallic-surface">
-      <Canvas camera={{ position: [3, 3, 3], fov: 50 }}>
-        <color attach="background" args={["#f1f5f9"]} />
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[10, 10, 5]} intensity={1} />
-        <directionalLight position={[-10, -10, -5]} intensity={0.3} />
-        <pointLight position={[0, 0, 0]} intensity={0.5} color="#60a5fa" />
-        
-        <Methane />
-        
-        <OrbitControls
-          enablePan={true}
-          enableZoom={true}
-          enableRotate={true}
-          minDistance={2}
-          maxDistance={10}
-        />
-      </Canvas>
+      <Suspense fallback={
+        <div className="w-full h-full flex items-center justify-center">
+          <div className="text-muted-foreground">Loading 3D viewer...</div>
+        </div>
+      }>
+        <Canvas camera={{ position: [3, 3, 3], fov: 50 }}>
+          <color attach="background" args={["#f1f5f9"]} />
+          <ambientLight intensity={0.5} />
+          <directionalLight position={[10, 10, 5]} intensity={1} />
+          <directionalLight position={[-10, -10, -5]} intensity={0.3} />
+          <pointLight position={[0, 0, 0]} intensity={0.5} color="#60a5fa" />
+          
+          <Methane />
+          
+          <OrbitControls
+            enablePan={true}
+            enableZoom={true}
+            enableRotate={true}
+            minDistance={2}
+            maxDistance={10}
+          />
+        </Canvas>
+      </Suspense>
     </div>
   );
 }
