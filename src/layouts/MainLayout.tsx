@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Home, TestTube, Library, BarChart3, User, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+
 interface MainLayoutProps {
   children: ReactNode;
 }
