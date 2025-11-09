@@ -82,3 +82,59 @@
     }
   }
   
+{
+    "version": 1,
+    "project": "BioSynth AI Monorepo",
+    "rules": {
+      "global": {
+        "allowed_file_modifications": "only_relevant_areas",
+        "prohibited_actions": [
+          "modifying design tokens",
+          "changing API response shapes",
+          "rewriting tests without user request",
+          "deleting files without explicit approval"
+        ],
+        "coding_standards": [
+          "prefer pure functions",
+          "strong typing required",
+          "never use any",
+          "avoid side effects"
+        ]
+      },
+      "frontend": {
+        "path": "frontend",
+        "rules": [
+          "Use React + TS + Tailwind only",
+          "Use R3F for 3D, no direct Three.js unless needed",
+          "All components must use the aluminium palette",
+          "All animations must use Framer Motion",
+          "State must be managed with Zustand"
+        ],
+        "forbidden": [
+          "Adding inline CSS",
+          "Using random colors",
+          "Writing untyped props"
+        ]
+      },
+      "engine": {
+        "path": "packages/engine",
+        "rules": [
+          "Pure TypeScript only",
+          "No DOM operations",
+          "No React",
+          "Must include unit tests for every module"
+        ]
+      },
+      "backend": {
+        "path": "backend",
+        "rules": [
+          "Use FastAPI for routing",
+          "Models must be modular",
+          "RDKit must be separated into utils",
+          "ONNX and PyTorch must not mix",
+          "Backend must expose clear API schemas"
+        ]
+      }
+    }
+  }
+  
