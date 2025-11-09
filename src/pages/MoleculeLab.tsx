@@ -228,62 +228,83 @@ export default function MoleculeLab() {
         </motion.div>
 
         {/* Bond Controls */}
-        <Card className="glass-panel">
-          <CardHeader>
-            <CardTitle className="text-lg">Bond Settings</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="space-y-2">
-              <Label>Bond Strength</Label>
-              <Slider
-                value={bondStrength}
-                onValueChange={setBondStrength}
-                max={3}
-                min={1}
-                step={1}
-                className="w-full"
-              />
-              <div className="flex justify-between text-xs text-muted-foreground">
-                <span>Single</span>
-                <span>Double</span>
-                <span>Triple</span>
+        <motion.div
+          whileHover={{ scale: 1.02 }}
+          transition={{ duration: 0.2 }}
+        >
+          <Card className="glass-panel">
+            <CardHeader>
+              <CardTitle className="text-lg">Bond Settings</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="space-y-2">
+                <Label>Bond Strength</Label>
+                <Slider
+                  value={bondStrength}
+                  onValueChange={setBondStrength}
+                  max={3}
+                  min={1}
+                  step={1}
+                  className="w-full"
+                />
+                <div className="flex justify-between text-xs text-muted-foreground">
+                  <span>Single</span>
+                  <span>Double</span>
+                  <span>Triple</span>
+                </div>
               </div>
-            </div>
 
-            <div className="flex items-center justify-between">
-              <Label htmlFor="auto-optimize">Auto-optimize</Label>
-              <Switch
-                id="auto-optimize"
-                checked={autoOptimize}
-                onCheckedChange={setAutoOptimize}
-              />
-            </div>
-          </CardContent>
-        </Card>
+              <div className="flex items-center justify-between">
+                <Label htmlFor="auto-optimize">Auto-optimize</Label>
+                <Switch
+                  id="auto-optimize"
+                  checked={autoOptimize}
+                  onCheckedChange={setAutoOptimize}
+                />
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
 
         {/* AI Suggestions */}
-        <Card className="glass-panel border-2 border-accent/20">
-          <CardHeader>
-            <CardTitle className="text-lg flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-accent" />
-              AI Suggestions
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-2 text-sm">
-              <div className="p-3 rounded-lg bg-accent/5 hover:bg-accent/10 transition-smooth cursor-pointer">
-                Add functional group at C2
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          whileHover={{ scale: 1.02 }}
+        >
+          <Card className="glass-panel border-2 border-accent/20">
+            <CardHeader>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-accent" />
+                AI Suggestions
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2 text-sm">
+                <motion.div
+                  whileHover={{ x: 4, backgroundColor: "rgba(78, 167, 255, 0.15)" }}
+                  className="p-3 rounded-lg bg-accent/5 transition-smooth cursor-pointer"
+                >
+                  Add functional group
+                </motion.div>
+                <motion.div
+                  whileHover={{ x: 4, backgroundColor: "rgba(78, 167, 255, 0.15)" }}
+                  className="p-3 rounded-lg bg-accent/5 transition-smooth cursor-pointer"
+                >
+                  Replace H with OH
+                </motion.div>
+                <motion.div
+                  whileHover={{ x: 4, backgroundColor: "rgba(78, 167, 255, 0.15)" }}
+                  className="p-3 rounded-lg bg-accent/5 transition-smooth cursor-pointer"
+                >
+                  Form cyclic structure
+                </motion.div>
               </div>
-              <div className="p-3 rounded-lg bg-accent/5 hover:bg-accent/10 transition-smooth cursor-pointer">
-                Replace H with OH
-              </div>
-              <div className="p-3 rounded-lg bg-accent/5 hover:bg-accent/10 transition-smooth cursor-pointer">
-                Form cyclic structure
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 }

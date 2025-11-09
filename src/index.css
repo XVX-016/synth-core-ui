@@ -8,40 +8,41 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Aluminum Lab Theme - Light metallic grays with cool accents */
-    --background: 210 20% 96%;
-    --foreground: 210 15% 15%;
+    /* BioSynth Aluminium Theme - Updated palette */
+    /* Aluminum colors: #F5F5F7 (light), #E5E7EA (default), #C9CCD1 (dark) */
+    --background: 220 14% 96%; /* #F5F5F7 */
+    --foreground: 0 0% 10%; /* #1A1A1C */
 
     /* Metallic surfaces */
-    --card: 210 15% 98%;
-    --card-foreground: 210 15% 15%;
+    --card: 0 0% 100%; /* #FFFFFF */
+    --card-foreground: 0 0% 10%; /* #1A1A1C */
 
-    --popover: 210 15% 98%;
-    --popover-foreground: 210 15% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
 
-    /* Cool blue-gray primary for scientific feel */
-    --primary: 200 90% 45%;
+    /* Primary: Accent blue #4EA7FF */
+    --primary: 206 100% 64%;
     --primary-foreground: 0 0% 100%;
 
-    /* Subtle metallic secondary */
-    --secondary: 210 12% 88%;
-    --secondary-foreground: 210 15% 20%;
+    /* Secondary: Aluminum default #E5E7EA */
+    --secondary: 220 14% 90%;
+    --secondary-foreground: 0 0% 15%;
 
-    /* Muted aluminum tones */
-    --muted: 210 15% 92%;
-    --muted-foreground: 210 10% 45%;
+    /* Muted: Aluminum light #F5F5F7 */
+    --muted: 220 14% 96%;
+    --muted-foreground: 0 0% 37%; /* #5C5C5F */
 
-    /* Cyan accent for highlights */
-    --accent: 185 80% 50%;
-    --accent-foreground: 210 15% 10%;
+    /* Accent: Blue #4EA7FF */
+    --accent: 206 100% 64%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 70% 55%;
+    --destructive: 0 73% 71%; /* #FF6B6B */
     --destructive-foreground: 0 0% 100%;
 
-    /* Subtle borders for depth */
-    --border: 210 15% 85%;
-    --input: 210 15% 92%;
-    --ring: 200 90% 45%;
+    /* Borders: Aluminum dark #C9CCD1 */
+    --border: 220 11% 78%;
+    --input: 220 14% 92%;
+    --ring: 206 100% 64%;
 
     --radius: 0.75rem;
 

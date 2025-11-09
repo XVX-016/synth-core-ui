@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { MoleculeViewer } from "@/components/MoleculeViewer";
@@ -13,9 +14,19 @@ const quickStats = [
 
 export default function Dashboard() {
   return (
-    <div className="space-y-8 pb-20 md:pb-8">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+      className="space-y-8 pb-20 md:pb-8"
+    >
       {/* Hero Section */}
-      <section className="relative overflow-hidden rounded-2xl p-8 md:p-12 metallic-surface">
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="relative overflow-hidden rounded-2xl p-8 md:p-12 metallic-surface"
+      >
         <div className="relative z-10 grid md:grid-cols-2 gap-8 items-center">
           <div className="space-y-6">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel text-sm">
@@ -56,14 +67,26 @@ export default function Dashboard() {
             <MoleculeViewer />
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Quick Stats */}
-      <section className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {quickStats.map((stat) => {
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2, duration: 0.4 }}
+        className="grid grid-cols-2 md:grid-cols-4 gap-4"
+      >
+        {quickStats.map((stat, index) => {
           const Icon = stat.icon;
           return (
-            <Card key={stat.label} className="glass-panel hover:bg-card/80 transition-smooth">
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 + index * 0.1 }}
+              whileHover={{ scale: 1.05, y: -4 }}
+            >
+              <Card className="glass-panel hover:bg-card/80 transition-smooth">
               <CardHeader className="pb-3">
                 <div className="flex items-center justify-between">
                   <Icon className="w-5 h-5 text-primary" />
@@ -75,12 +98,17 @@ export default function Dashboard() {
                 <p className="text-xs text-muted-foreground mt-1">{stat.label}</p>
               </CardContent>
             </Card>
+            </motion.div>
           );
         })}
-      </section>
+      </motion.section>
 
       {/* Recent Projects */}
-      <section>
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4, duration: 0.4 }}
+      >
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-2xl font-bold">Recent Projects</h2>
           <Link to="/library">
@@ -90,7 +118,14 @@ export default function Dashboard() {
         
         <div className="grid md:grid-cols-3 gap-4">
           {[1, 2, 3].map((i) => (
-            <Card key={i} className="glass-panel hover:bg-card/80 transition-smooth cursor-pointer">
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.5 + i * 0.1 }}
+              whileHover={{ scale: 1.02, y: -4 }}
+            >
+              <Card className="glass-panel hover:bg-card/80 transition-smooth cursor-pointer">
               <CardHeader>
                 <CardTitle className="text-lg">Compound #{i}234</CardTitle>
                 <CardDescription>Modified 2 hours ago</CardDescription>
@@ -109,9 +144,10 @@ export default function Dashboard() {
                 </div>
               </CardContent>
             </Card>
+            </motion.div>
           ))}
         </div>
-      </section>
-    </div>
+      </motion.section>
+    </motion.div>
   );
 }

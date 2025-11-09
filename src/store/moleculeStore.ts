@@ -28,8 +28,38 @@ interface MoleculeStore {
   loadMolecule: (molecule: MoleculeGraph) => void;
 }
 
+// Create default methane molecule
+function createDefaultMolecule(): MoleculeGraph {
+  const molecule = new MoleculeGraph();
+  
+  // Carbon at center
+  const carbonId = molecule.addAtom({
+    element: "C",
+    position: [0, 0, 0],
+  });
+
+  // Four hydrogens in tetrahedral arrangement
+  const hydrogenPositions: [number, number, number][] = [
+    [0.89, 0.89, 0.89],
+    [-0.89, -0.89, 0.89],
+    [0.89, -0.89, -0.89],
+    [-0.89, 0.89, -0.89],
+  ];
+
+  hydrogenPositions.forEach((pos) => {
+    const hydrogenId = molecule.addAtom({
+      element: "H",
+      position: pos,
+    });
+    molecule.addBond(carbonId, hydrogenId, 1);
+  });
+
+  centerMolecule(molecule);
+  return molecule;
+}
+
 export const useMoleculeStore = create<MoleculeStore>((set, get) => {
-  const initialMolecule = new MoleculeGraph();
+  const initialMolecule = createDefaultMolecule();
   const undoStack = new UndoStack();
   undoStack.push(initialMolecule);
 
@@ -110,24 +140,31 @@ export const useMoleculeStore = create<MoleculeStore>((set, get) => {
         return;
       }
 
+      let newSelected: Set<string>;
       if (multiSelect) {
-        const newSelected = new Set(state.selectedAtoms);
+        newSelected = new Set(state.selectedAtoms);
         if (newSelected.has(id)) {
           newSelected.delete(id);
         } else {
           newSelected.add(id);
         }
-        set({ selectedAtoms: newSelected });
       } else {
-        set({ selectedAtoms: new Set([id]) });
+        // If clicking on already selected atom with one other selected, create bond
+        if (state.selectedAtoms.size === 1 && state.selectedAtoms.has(id)) {
+          // Do nothing, already selected
+          return;
+        }
+        if (state.selectedAtoms.size === 1 && !state.selectedAtoms.has(id)) {
+          // Create bond between the two atoms
+          const otherAtom = Array.from(state.selectedAtoms)[0];
+          state.addBond(otherAtom, id);
+          set({ selectedAtoms: new Set() });
+          return;
+        }
+        newSelected = new Set([id]);
       }
 
-      // Auto-create bond if two atoms selected
-      if (state.selectedAtoms.size === 2 && !multiSelect) {
-        const atoms = Array.from(state.selectedAtoms);
-        state.addBond(atoms[0], atoms[1]);
-        set({ selectedAtoms: new Set() });
-      }
+      set({ selectedAtoms: newSelected });
     },
 
     selectBond: (id) => {
